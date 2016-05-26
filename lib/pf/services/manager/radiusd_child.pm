@@ -553,11 +553,12 @@ EOT
                  if (defined($net{'next_hop'})) {
                      $routed_networks .= "|| (&request:DHCP-Client-IP-Address < $prefix/$mask)";
                      $tags{'config'} .= <<"EOT";
-		if ( ( (&request:DHCP-Gateway-IP-Address != 0.0.0.0) && (&request:DHCP-Gateway-IP-Address < $prefix/$mask) ) || (&request:DHCP-Client-IP-Address < $prefix/$mask) ) {
+
+        if ( (&request:DHCP-Gateway-IP-Address != 0.0.0.0) && (&request:DHCP-Gateway-IP-Address < $prefix/$mask) )
 EOT
                  } else {
                      $tags{'config'} .= <<"EOT";
-		if ( (&request:DHCP-Gateway-IP-Address == 0.0.0.0)  || (&request:DHCP-Client-IP-Address < $prefix/$mask) ) {
+        if ( (&request:DHCP-Gateway-IP-Address == 0.0.0.0) && (&request:DHCP-Gateway-IP-Address < $prefix/$mask) )
 
 EOT
                  }
@@ -590,7 +591,7 @@ EOT
 
  $tags{'config'} .= <<"EOT";
 	dhcp_sqlippool
-	rest-dhcp
+        rest-dhcp
 	ok
 	}
 	else {
@@ -639,11 +640,11 @@ EOT
                  if (defined($net{'next_hop'})) {
                      $tags{'config'} .= <<"EOT";
 
-	if (  ( (&request:DHCP-Gateway-IP-Address != 0.0.0.0) && (&request:DHCP-Gateway-IP-Address < $prefix/$mask) ) || (&request:DHCP-Client-IP-Address < $prefix/$mask) ) {
+        if ( (&request:DHCP-Gateway-IP-Address != 0.0.0.0) && (&request:DHCP-Gateway-IP-Address < $prefix/$mask) )
 EOT
                  } else {
                      $tags{'config'} .= <<"EOT";
-	if (  (&request:DHCP-Gateway-IP-Address == 0.0.0.0)  || (&request:DHCP-Client-IP-Address < $prefix/$mask) ) {
+        if ( (&request:DHCP-Gateway-IP-Address == 0.0.0.0) && (&request:DHCP-Gateway-IP-Address < $prefix/$mask) )
 
 EOT
                  }
