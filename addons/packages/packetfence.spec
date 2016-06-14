@@ -1077,6 +1077,8 @@ fi
 %config(noreplace)      /usr/local/pf/conf/switches.conf
 %config                 /usr/local/pf/conf/switches.conf.defaults
                         /usr/local/pf/conf/switches.conf.example
+%config(noreplace)      /usr/local/pf/conf/switch_filters.conf
+                        /usr/local/pf/conf/switch_filters.conf.example
 %config(noreplace)      /usr/local/pf/conf/vlan_filters.conf
                         /usr/local/pf/conf/vlan_filters.conf.example
 %config                 /usr/local/pf/conf/vlan_filters.conf.defaults

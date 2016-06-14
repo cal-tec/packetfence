@@ -88,6 +88,7 @@ our (
     $captiveportal_templates_path,
     $captiveportal_profile_templates_path,
     $captiveportal_default_profile_templates_path,
+    $switch_filters_config_file,
 );
 
 BEGIN {
@@ -150,6 +151,7 @@ BEGIN {
         $captiveportal_templates_path
         $captiveportal_profile_templates_path
         $captiveportal_default_profile_templates_path
+        $switch_filters_config_file
     );
 }
 
@@ -232,6 +234,7 @@ $dns_filters_default_config_file = catfile($conf_dir,"dns_filters.conf.defaults"
 $admin_audit_log = catfile($log_dir, "httpd.admin.audit.log");
 $portal_modules_config_file = catfile($conf_dir,"portal_modules.conf");
 $portal_modules_default_config_file = catfile($conf_dir,"portal_modules.conf.defaults");
+$switch_filters_config_file = catfile($conf_dir,"switch_filters.conf"); 
 
 $oui_url               = 'http://standards.ieee.org/regauth/oui/oui.txt';
 $dhcp_fingerprints_url = 'http://www.packetfence.org/dhcp_fingerprints.conf';
@@ -269,6 +272,7 @@ $captiveportal_default_profile_templates_path = catdir ($captiveportal_profile_t
     $radius_filters_config_file,
     $dhcp_filters_config_file,
     $dns_filters_config_file,
+    $switch_filters_config_file,
 );
 
 
