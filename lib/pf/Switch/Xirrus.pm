@@ -54,6 +54,16 @@ sub supportsWirelessMacAuth { return $TRUE; }
 # inline capabilities
 sub inlineCapabilities { return ($MAC,$SSID); }
 
+#
+# %TRAP_NORMALIZERS
+# A hash of Xirrus trap normalizers
+# Use the following convention when adding a normalizer
+# <nameOfTrapNotificationType>TrapNormalizer
+#
+our %TRAP_NORMALIZERS = (
+   '.1.3.6.1.4.1.14823.2.3.1.11.1.2.1017' => 'wlsxNUserEntryDeAuthenticatedTrapNormalizer',
+);
+
 =item getVersion
 
 obtain image version information from switch
@@ -299,6 +309,22 @@ sub returnAuthorizeRead {
     my $rule = $filter->test('returnAuthorizeRead', $args);
     ($radius_reply_ref, $status) = $filter->handleAnswerInRule($rule,$args,$radius_reply_ref);
     return [$status, %$radius_reply_ref];
+}
+
+=item wlsxNUserEntryDeAuthenticatedTrapNormalizer
+
+trap normalizer for wlsxNUserEntryDeAuthenticated trap
+
+=cut
+
+sub wlsxNUserEntryDeAuthenticatedTrapNormalizer {
+    my ($self, $trapInfo) = @_;
+    my $logger = $self->logger;
+    my ($pdu, $variables) = @$trapInfo;
+    return {
+        trapType => 'dot11Deauthentication',
+        trapMac => $self->getMacFromTrapVariablesForOIDBase($variables, '.1.3.6.1.4.1.14823.2.3.1.11.1.1.52.'),
+    };
 }
 
 =back
