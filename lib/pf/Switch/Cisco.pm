@@ -1648,7 +1648,7 @@ The trap normalizer for cpsSecureMacAddrViolation traps
 sub cpsSecureMacAddrViolationTrapNormalizer {
     my ($self, $trapInfo) = @_;
     my ($pdu, $variables) = @$trapInfo;
-    my $ifIndex = $self->getIndex($variables);
+    my $ifIndex = $self->getIfIndexFromTrap($variables);
     return {
         trapType => 'secureMacAddrViolation',
         trapIfIndex => $ifIndex,
@@ -1657,9 +1657,9 @@ sub cpsSecureMacAddrViolationTrapNormalizer {
     }
 }
 
-=item cpsSecureMacAddrViolationTrapNormalizer
+=item cpsTrunkSecureMacAddrViolationTrapNormalizer
 
-The trap normalizer for cpsSecureMacAddrViolationTrapNormalizer traps
+The trap normalizer for cpsTrunkSecureMacAddrViolation traps
 
 =cut
 
