@@ -3427,6 +3427,15 @@ sub extractMacFromVariable {
     return parse_mac_from_trap($1);
 }
 
+=item handleTrap
+
+A hook for switch specific trap handling
+If a true value is returned then the trap will be handled using the default logic.
+
+=cut
+
+sub handleTrap { 1 }
+
 =back
 
 =head1 AUTHOR
