@@ -43,7 +43,7 @@ if (ref($management_network)) {
     $management_ip .= ':162';
 }
 
-has '+launcher' => (default => sub { "%1\$s -n -c $generated_conf_dir/snmptrapd.conf -C -A -Lf $install_dir/logs/snmptrapd.log -p $install_dir/var/run/snmptrapd.pid -On $management_ip" } );
+has '+launcher' => (default => sub { "%1\$s -n -c $generated_conf_dir/snmptrapd.conf -C -A -Lf $install_dir/logs/snmptrapd.log -p $install_dir/var/run/snmptrapd.pid -On 0.0.0.0:162" } );
 
 =head2 generateConfig
 
@@ -65,11 +65,11 @@ sub generateConfig {
 
         # grabbing only the username portion of the key
         my (undef, $username) = split(/ /, $user_key);
-        $tags{'authLines'} .= "authUser log $username priv\n";
+        $tags{'authLines'} .= "authUser execute,log $username priv\n";
     }
 
     foreach my $community ( sort keys %$snmp_communities ) {
-        $tags{'authLines'} .= "authCommunity log $community\n";
+        $tags{'authLines'} .= "authCommunity execute,log $community\n";
     }
 
     $tags{'template'} = "$conf_dir/snmptrapd.conf";
