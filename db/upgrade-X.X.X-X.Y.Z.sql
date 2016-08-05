@@ -30,7 +30,7 @@ INSERT INTO pf_version (id, version) VALUES (@VERSION_INT, CONCAT_WS('.', @MAJOR
 CREATE TABLE radippool (
   id                    int(11) unsigned NOT NULL auto_increment,
   pool_name             varchar(30) NOT NULL,
-  framedipaddress       varchar(15) NOT NULL default '',
+  framedipaddress       varchar(18) NOT NULL default '',
   nasipaddress          varchar(15) NOT NULL default '',
   calledstationid       VARCHAR(30) NOT NULL,
   callingstationid      VARCHAR(30) NOT NULL,
