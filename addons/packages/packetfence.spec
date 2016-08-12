@@ -99,6 +99,7 @@ Requires: net-tools
 Requires: sscep
 Requires: p0f
 Requires: net-snmp >= 5.3.2.2
+Requires: net-snmp-perl
 Requires: perl >= %{perl_version}
 %{?el6:Requires: mysql, mysql-server}
 %{?el7:Requires: mariadb, mariadb-server}
@@ -125,6 +126,7 @@ Requires: perl(IPC::Cmd)
 Requires: perl(IPTables::ChainMgr)
 Requires: perl(IPTables::Parse)
 Requires: perl(Tie::DxHash)
+Requires: perl(File::FcntlLock)
 requires: perl(Proc::ProcessTable)
 requires: perl(Apache::SSLLookup)
 requires: perl(Crypt::OpenSSL::PKCS12)
