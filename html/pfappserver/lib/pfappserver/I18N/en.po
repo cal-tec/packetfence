@@ -10422,6 +10422,14 @@ msgstr "Role"
 msgid "set_unreg_date"
 msgstr "Unregistration date"
 
+# pf::Authentication::constants (Actions)
+msgid "set_time_balance"
+msgstr "Time balance"
+
+# pf::Authentication::constants (Actions)
+msgid "set_bandwidth_balance"
+msgstr "Bandwidth balance"
+
 # conf/documentation.conf (vlan.trap_limit_action options)
 msgid "shut"
 msgstr ""
