@@ -126,7 +126,10 @@ sub handler {
         $logger->trace("Got unregdate $value for username $pid");
         %info = (%info, (unregdate => $value));
     }
-
+    my $time_balance = &pf::authentication::match($source_id, $params, $Actions::SET_TIME_BALANCE);
+    my $bandwidth_balance = &pf::authentication::match($source_id, $params, $Actions::SET_BANDWIDTH_BALANCE);
+    $info{'time_balance'} = pf::util::normalize_time($time_balance) if (defined($time_balance));
+    $info{'bandwidth_balance'} = pf::util::unpretty_bandwidth($bandwidth_balance) if (defined($bandwidth_balance));
     $r->pnotes->{info}=\%info;
     $template->process( "response_wispr.tt", $stash, \$response ) || $logger->error($template->error());
     $r->content_type('text/xml');

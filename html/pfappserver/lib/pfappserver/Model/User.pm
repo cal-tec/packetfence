@@ -102,11 +102,13 @@ sub _make_actions {
     my ($self, $user) = @_;
 
     my %FIELD_TO_ACTION = (
-        'can_sponsor'     => $Actions::MARK_AS_SPONSOR,
-        'access_level'    => $Actions::SET_ACCESS_LEVEL,
-        'category'        => $Actions::SET_ROLE,
-        'unregdate'       => $Actions::SET_UNREG_DATE,
-        'access_duration' => $Actions::SET_ACCESS_DURATION,
+        'can_sponsor'       => $Actions::MARK_AS_SPONSOR,
+        'access_level'      => $Actions::SET_ACCESS_LEVEL,
+        'category'          => $Actions::SET_ROLE,
+        'unregdate'         => $Actions::SET_UNREG_DATE,
+        'access_duration'   => $Actions::SET_ACCESS_DURATION,
+        'time_balance'      => $Actions::SET_TIME_BALANCE,
+        'bandwidth_balance' => $Actions::SET_ACCESS_DURATION,
     );
 
     my @actions = map +{ type => $FIELD_TO_ACTION{$_}, value => $user->{$_} }, grep { $user->{$_} } keys %FIELD_TO_ACTION;

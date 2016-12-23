@@ -1049,6 +1049,8 @@ sub dynamic_register_node : Public {
     my $role = &pf::authentication::match([@sources], $params, $Actions::SET_ROLE, \$source);
     #Compute autoreg if we use autoreg
     my $value = &pf::authentication::match([@sources], $params, $Actions::SET_UNREG_DATE);
+    my $time_balance = &pf::authentication::match([@sources], $params, $Actions::SET_TIME_BALANCE);
+    my $bandwidth_balance = &pf::authentication::match([@sources], $params, $Actions::SET_BANDWIDTH_BALANCE);
     if (defined $value) {
         my %info = (
             'unregdate' => $value,
@@ -1061,6 +1063,12 @@ sub dynamic_register_node : Public {
         );
         if (defined $role) {
             %info = (%info, (category => $role));
+        }
+        if (defined $time_balance) {
+            %info = (%info, (time_balance => pf::util::normalize_time($time_balance));
+        }
+        if (defined $bandwidth_balance) {
+            %info = (%info, (bandwidth_balance => pf::util::unpretty_bandwidth($bandwidth_balance)));
         }
         pf::node::node_register($postdata{'mac'}, $postdata{'username'}, %info);
         pf::enforcement::reevaluate_access( $postdata{'mac'}, 'manage_register' );
