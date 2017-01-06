@@ -73,20 +73,24 @@ sub handle {
     my $filter = pf::access_filter::switch->new;
     my $type_switch = $filter->filter('external_portal', $args);
 
-    # Discarding non external portal requests
-    unless ( $uri =~ /$WEB::EXTERNAL_PORTAL_URL/o ) {
-        $logger->debug("Tested URI '$uri' against external portal mechanism and does not appear to be one.");
-        return $FALSE;
-    }
+    if (!$type_switch) {
+        # Discarding non external portal requests
+        unless ( $uri =~ /$WEB::EXTERNAL_PORTAL_URL/o ) {
+            $logger->debug("Tested URI '$uri' against external portal mechanism and does not appear to be one.");
+            return $FALSE;
+        }
 
-    # Parsing external portal URL information for switch handling
-    # URI will usually be in the form (/Switch::Type/sid424242), where:
-    # - Switch::Type will be the switch type to instantiate (mandatory)
-    # - sid424242 is the optional PacketFence session ID to track the session when working by session ID and not by URI parameters
-    $logger->info("URI '$uri' is detected as an external captive portal URI");
-    $uri =~ /\/([^\/]*)/;
-    my $switch_type = $1;
-    $switch_type = "pf::Switch::$switch_type";
+        # Parsing external portal URL information for switch handling
+        # URI will usually be in the form (/Switch::Type/sid424242), where:
+        # - Switch::Type will be the switch type to instantiate (mandatory)
+        # - sid424242 is the optional PacketFence session ID to track the session when working by session ID and not by URI parameters
+        $logger->info("URI '$uri' is detected as an external captive portal URI");
+        $uri =~ /\/([^\/]*)/;
+        my $switch_type = $1;
+        $switch_type = "pf::Switch::$switch_type";
+    } else {
+        $switch_type = $type_switch;
+    }
     if ( !(eval "$switch_type->require()") ) {
         $logger->error("Cannot load perl module for switch type '$switch_type'. Either switch type is unknown or switch type perl module have compilation errors. " .
         "See the following message for details: $@");
