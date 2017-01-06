@@ -33,6 +33,7 @@ use pf::util;
 use pf::web::constants;
 use pf::web::util;
 use pf::constants;
+use pf::access_filter::switch;
 
 =head1 SUBROUTINES
 
@@ -63,6 +64,14 @@ sub handle {
 
     my $req = Apache2::Request->new($r);
     my $uri = $r->uri;
+
+    my $args = {
+        uri => $uri,
+        request => { %$table },
+    };
+
+    my $filter = pf::access_filter::switch->new;
+    my $type_switch = $filter->filter('external_portal', $args);
 
     # Discarding non external portal requests
     unless ( $uri =~ /$WEB::EXTERNAL_PORTAL_URL/o ) {

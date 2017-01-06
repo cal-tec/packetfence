@@ -95,7 +95,7 @@ sub authorize {
     my $logger = $self->logger;
     my($switch_mac, $switch_ip,$source_ip,$stripped_user_name,$realm) = $self->_parseRequest($radius_request);
     my $RAD_REPLY_REF;
-    
+
     $logger->debug("instantiating switch");
     my $switch = pf::SwitchFactory->instantiate({ switch_mac => $switch_mac, switch_ip => $switch_ip, controllerIp => $switch_ip});
 
