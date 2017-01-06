@@ -62,6 +62,8 @@ sub handle {
     my ( $self, $r ) = @_;
     my $logger = get_logger;
 
+    my $switch_type;
+
     my $req = Apache2::Request->new($r);
     my $uri = $r->uri;
 
@@ -89,7 +91,7 @@ sub handle {
         my $switch_type = $1;
         $switch_type = "pf::Switch::$switch_type";
     } else {
-        $switch_type = $type_switch;
+        $switch_type = "pf::Switch::$type_switch";
     }
     if ( !(eval "$switch_type->require()") ) {
         $logger->error("Cannot load perl module for switch type '$switch_type'. Either switch type is unknown or switch type perl module have compilation errors. " .
